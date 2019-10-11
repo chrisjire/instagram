@@ -11,10 +11,18 @@ class Profile(models.Model):
     email = models.EmailField()
     
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}'
     
     def save_profile(self):
         self.save
+        
+    def delete_profile(self):
+        self.delete()
+        
+    @classmethod
+    def get_profile(cls):
+        prof = cls.objects.all()
+        return prof
         
     class Meta:
         ordering = ['user']
@@ -35,7 +43,7 @@ class Post(models.Model):
     post_image = models.ImageField(upload_to= 'images')
     post_name = models.CharField(max_length=20)
     post_description = models.TextField()
-    profile = models.ForeignKey(User,on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add= True)
     

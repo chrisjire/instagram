@@ -2,9 +2,22 @@
 
 {% block content %}
 {{block.super}}
-<div class="container-fluid">
+<div class="container">
 
-    <h1>lala land</h1>
+    <div class="row">
+        
+    {% for new_item in new %}
+
+    <div class="col-sm-12 col-md-12">
+        <br>
+        <div class="card" style="width: 700px;">
+            <div class="card-header blue-text">{{new_item.profile}}</div>
+            
+                <img class="card-img-top" src="{{new_item.post_image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
+        </div>
+    </div>
+    {% endfor %}
+    </div>
 
 </div>
 
