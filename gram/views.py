@@ -4,8 +4,10 @@ from .models import Post, Profile, NewsletterRecipients
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .email import send_welcome_email
 from .forms import NewsLetterForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def welcome(request):
     new = Post.get_post()
     prof = Profile.get_profile()
