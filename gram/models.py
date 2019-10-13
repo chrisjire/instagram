@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 import datetime as dt
 from django.db.models.signals import post_save
+from django.db.models import Q
 
 
 # Create your models here.
@@ -30,9 +31,14 @@ class Profile(models.Model):
         self.delete()
         
     @classmethod
-    def get_profile(cls):
-        prof = cls.objects.all()
-        return prof
+    def search_by_user(cls,search_term):
+        profiles = cls.objects.filter(user__name__icontains=search_term)
+        return profiles
+    
+    def post(self, form):
+        image = form.save(commit=False)
+        image.user = self
+        image.save()
         
     class Meta:
         ordering = ['user']

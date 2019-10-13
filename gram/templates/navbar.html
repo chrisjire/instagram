@@ -39,10 +39,10 @@
             
             <div class="col-sm-6 col-md-6 navbar-right" >
 
-                <form style="margin-top: 20px;" class="form-inline" role="search" action="#">
+                <form style="margin-top: 20px;" class="form-inline" role="search" action="{% url 'search_results'%}">
         
-                <div class="md-form mt-0">
-                    <input type="text" class="form-control" placeholder="Search" name="image" aria-label="search">
+                <div class="md-form mt-0" >
+                    <input type="text" class="form-control" style="color: black;" placeholder="Search" name="user" aria-label="search">
                     <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
                     </div>
                 </form>

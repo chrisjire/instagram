@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 import datetime as dt
-from .models import Post, Profile, NewsletterRecipients
+from .models import Post, Profile, NewsletterRecipients, User
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .email import send_welcome_email
 from .forms import NewsLetterForm, ProfileForm, PostForm
@@ -60,5 +60,26 @@ def new_post(request):
             request.user.profile.posts(form)
     return render(request, 'new_post.html', locals())
 
+@login_required(login_url='/accounts/login/')
+def user(request, user_id):
+    user_object=get_object_or_404(User, pk=user_id)
+    if request.user == user_object:
+        return redirect('profile')
+    # isfollowing = user_object.profile not in request.user.profile.follows
+    user_images = user_object.profile.posts.all()
+    return render(request, 'userprofile.html', locals())
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'profile' in request.GET and request.GET["profile"]:
+        search_term = request.GET.get("profile")
+        searched_profiles = Profile.search_by_user(search_term)
+        message=f"{search_term}"
+
+        return render(request,'search.html',{"message":message,"profiles":searched_profiles})
+
+    else:
+        message="You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
 
 
