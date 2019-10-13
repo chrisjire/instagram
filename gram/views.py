@@ -27,4 +27,10 @@ def welcome(request):
     
     return render (request, 'index.html', {"new":new, "prof":prof, "letterForm":form})
 
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    images = request.user.profile.posts.all()
+    user_object = request.user
+    user_images = user_object.profile.posts.all()
+    return render(request, 'profile.html', locals())
 

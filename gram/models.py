@@ -1,20 +1,30 @@
 from django.db import models
+from django.dispatch import receiver
 from django.contrib.auth.models import User
 import datetime as dt
+from django.db.models.signals import post_save
+
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    profile_image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     email = models.EmailField()
+    bio = models.TextField(default="Hello Friends")
     
     def __str__(self):
         return f'{self.user.username}'
     
-    def save_profile(self):
-        self.save
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
         
     def delete_profile(self):
         self.delete()
@@ -40,10 +50,10 @@ class tags(models.Model):
         verbose_name_plural = 'tags'
         
 class Post(models.Model):
-    post_image = models.ImageField(upload_to= 'images')
+    image = models.ImageField(upload_to= 'images/')
     post_name = models.CharField(max_length=20)
     post_description = models.TextField()
-    profile = models.ForeignKey(Profile)
+    user = models.ForeignKey(Profile, related_name='posts', null=True)
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add= True)
     

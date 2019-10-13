@@ -29,17 +29,43 @@
                 </li> -->
                 </ul>
             
-            <div class="col-sm-4 col-md-4 navbar-right">
+            <div class="col-sm-3 col-md-3 navbar-right" >
 
-                <form class="form-inline" role="search" action="#">
+                <form style="margin-top: 20px;" class="form-inline" role="search" action="#">
         
                 <div class="md-form mt-0">
                     <input type="text" class="form-control" placeholder="Search" name="image" aria-label="search">
                     <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
                     </div>
-                </div>
-        
                 </form>
+                </div>
+                <div>
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu dropdown-default"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                        <a class="dropdown-item" href="/accounts/password/change">Change password</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        
+                    </div>
+                    </li>
+                </ul>
+                {% else %}
+                <li>
+                    <a class='btn btn-default' href="/accounts/login">Login</a>
+                </li>
+                <li>
+                    <a class='btn btn-default' href="/accounts/register">Sign up</a>
+                </li>
+    
+                {% endif %}
+                </div>
             </div>
         </div>
             </nav>
