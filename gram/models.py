@@ -69,6 +69,7 @@ class Post(models.Model):
         return new
     
     class Meta:
+        ordering = ["-pk"]
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         

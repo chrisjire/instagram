@@ -3,7 +3,7 @@ import datetime as dt
 from .models import Post, Profile, NewsletterRecipients
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .email import send_welcome_email
-from .forms import NewsLetterForm, ProfileForm
+from .forms import NewsLetterForm, ProfileForm, PostForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -50,4 +50,15 @@ def edit(request):
     else:
         new_profile = ProfileForm(instance=request.user.profile)
     return render(request, 'edit.html', locals())
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    image_form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            request.user.profile.posts(form)
+    return render(request, 'new_post.html', locals())
+
+
 

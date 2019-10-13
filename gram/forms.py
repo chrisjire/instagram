@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Post
 
 class NewsLetterForm(forms.Form):
     your_name = forms.CharField(label='First Name',max_length=30)
@@ -12,3 +12,8 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('profile_image','first_name','last_name','bio' )
+        
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ('user',)
