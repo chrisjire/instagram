@@ -450,3 +450,19 @@ footer p a:hover {
     padding: 12px;
     margin: -12px;
 }
+.navbar-brand{
+    margin-bottom: 5px;
+
+}
+.instagramlogo{
+    margin-bottom: 15px;
+}
+.bar-pipe{
+    padding: 0.3em;
+    border-right: 1px solid black;
+    position: fixed;
+    top:15px;
+    height: 30px;
+    margin-bottom: 30px;
+
+}

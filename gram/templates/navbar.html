@@ -1,25 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark blue-gradient">
-            <a class="navbar-brand" style="font-size: 20px; color: white; font-weight: bold;" href="#">Instagram</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    <nav class="navbar navbar-expand-lg navbar-dark" style="color: white;">
+            <a class="navbar-brand" href="{% url 'welcome' %}">
+            <img alt="Brand" src="{% static 'img/navbar.png' %}" width=24 height=24>
+            </a>
+            <a class="navbar-brand bar-pipe"><a>
+            
+            <a class="navbar-brand instagramlogo" href="{% url 'welcome' %}">
+                <img alt="Brand" src="{% static 'img/brand.png' %}" height=40 >
+            </a>
+            <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon default-color-dark"></span>
             </button>
+            
             
             <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link hoverable" style="font-size: 20px; color: white; font-weight: bold;" href="{% url 'welcome' %}">Home </a>
-                </li>
+                
 
                 <li class="nav-item">
-                    <a class="nav-link hoverable" style="font-size: 20px; color: white; font-weight: bold;" href="http://127.0.0.1:8000/admin/">Admin</a>
+                    <a class="nav-link hoverable" style="font-size: 20px; color: black; font-weight: bold;" href="http://127.0.0.1:8000/admin/">Admin</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -29,7 +37,7 @@
                 </li> -->
                 </ul>
             
-            <div class="col-sm-3 col-md-3 navbar-right" >
+            <div class="col-sm-6 col-md-6 navbar-right" >
 
                 <form style="margin-top: 20px;" class="form-inline" role="search" action="#">
         
@@ -39,32 +47,12 @@
                     </div>
                 </form>
                 </div>
-                <div>
-                {% if user.is_authenticated %}
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu dropdown-default"
-                        aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                        
-                        
-                        
-                    </div>
-                    </li>
-                </ul>
-                {% else %}
-                <li>
-                    <a class='btn btn-default' href="/accounts/login">Login</a>
-                </li>
-                <li>
-                    <a class='btn btn-default' href="/accounts/register">Sign up</a>
-                </li>
-    
-                {% endif %}
+                <div  class="col-md-2 col-lg-2">
+                    <ul class="nav navbar-nav navbar-right" style="font-size: 30px; color: black; ">
+                        <li><a style="color: black;" href="#"><span class="fas fa-compass hoverable"></span></a></li>
+                        <li><a style="margin-left: 50px; color: black;" href="#"><span class="fas fa-heart hoverable"></span></a></li>
+                        <li><a style="margin-left: 50px; color: black;" href="{% url 'profile' %}"><span class="fas fa-user hoverable"></span></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
