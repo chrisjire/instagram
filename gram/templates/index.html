@@ -7,14 +7,28 @@
 
     <div class="row">
         
-    {% for new_item in new %}
+    {% for image in images %}
 
     <div class="col-sm-12 col-md-12">
         <br>
-        <div class="card" style="width: 700px;">
-            <div class="card-header blue-text">{{new_item.profile}}</div>
+        <div class="card" style="width: 700px; border-radius: 20px;">
+            <div class="card-body">
+            <div class="card-title">
+                <img src="{{image.user.profile_image.url}}" class="rounded-circle border" alt="{{image.user.user.username}}" width="60" height="60">
+                <a href="#">
+                    <strong style="color: #333333;cursor: pointer; margin-left: 10px;">{{image.user.user.username}}</strong>
+                </a>
+            </div>
+        </div>
+        <div class="card-text">
+            <img class="card-img-top" src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
             
-                <img class="card-img-top" src="{{new_item.post_image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
+            <p style="margin-top: 20px; margin-left: 10px;"><strong>{{image.user.user.username}}:</strong> {{image.post_description}}</p>
+        </div>
+
+            
+            
+                
         </div>
     </div>
     {% endfor %}

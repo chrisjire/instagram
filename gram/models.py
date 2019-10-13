@@ -53,7 +53,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to= 'images/')
     post_name = models.CharField(max_length=20)
     post_description = models.TextField()
-    user = models.ForeignKey(Profile, related_name='posts', null=True)
+    user = models.ForeignKey(Profile, related_name='posts')
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add= True)
     

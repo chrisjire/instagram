@@ -9,11 +9,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def welcome(request):
-    new = Post.get_post()
-    prof = Profile.get_profile()
+    images = Post.objects.all()
     
     if request.method == 'POST':
-        form = NewsLetterForm(request.POST)
+        form = NewsLetterForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['your_name']
             email = form.cleaned_data['email']
@@ -25,7 +24,7 @@ def welcome(request):
     else:
         form = NewsLetterForm()
     
-    return render (request, 'index.html', {"new":new, "prof":prof, "letterForm":form})
+    return render (request, 'index.html', {"images":images, "letterForm":form},locals())
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
