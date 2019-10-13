@@ -35,15 +35,19 @@ def profile(request):
 
 @login_required(login_url='/accounts/login/')
 def edit(request):
-    current_user = request.user
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            profile=form.save(commit=False)
-            profile.username = current_user
-            profile.save()
-            
-    else:
-        form = ProfileForm()
+        print(request.FILES)
+        new_profile = ProfileForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profile
+        )
         
-    return render(request, 'edit.html', {"form":form})
+        if new_profile.is_valid():
+            new_profile.save()
+            print(new_profile.fields)
+            return redirect('profile')
+    else:
+        new_profile = ProfileForm(instance=request.user.profile)
+    return render(request, 'edit.html', locals())
+

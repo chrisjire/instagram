@@ -6,6 +6,9 @@ class NewsLetterForm(forms.Form):
     email = forms.EmailField(label='Email')
     
 class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget=forms.TextInput()
     class Meta:
-        model=Profile
-        exclude=['username']
+        model = Profile
+        fields = ('profile_image','first_name','last_name','bio' )
