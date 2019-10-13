@@ -24,10 +24,13 @@
                                             <span class="edittext">Edit Profile</span>
                                         </button>
                                     </a>
-                                        <button style="display: contents" data-toggle="modal" data-target="#logoutmodal">
-                                            <span <i class="fas fa-cog" style="font-size:25px; margin-left: 10px;"></i></span>
+                                        <button style="display: contents" data-toggle="modal" data-target="#lol">
+                                            <span class="fas fa-cog" style="font-size:25px; margin-left: 10px;"></span>
                                         </button>
+
+                                        
                                 </div>
+                                
                                 <div style="margin-bottom: 15px; margin-top: 10px;">
                                     <span class="info"><strong>1</strong> posts</span>
                                     <span class="info"><strong>5</strong> followers</span>
@@ -109,12 +112,30 @@
                         </div>
                     </div>
                 </div>
+                
                 </div>
             </div>
+            
         </div>
         
         <footer class="footer text-center ">
         </footer>
+        <div class="modal fade" id="lol" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modalhold modal-content">
+                        <div class="modalcontain">
+                            <a class="modaloption button" href="/accounts/password/change">
+                            Change password</a>
+                            <a class="modaloption button" href="/logout">
+                            logout
+                            </a>
+                            <a class="modaloption button" data-dismiss="modal">
+                            Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
 
 {% endblock %}
