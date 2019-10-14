@@ -29,6 +29,9 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
         
+    def comment(self, photo, text):
+        Comment(text=text, photo=photo, user=self).save()
+        
     @classmethod
     def search_by_user(cls,search_term):
         profiles = cls.objects.filter(user__name__icontains=search_term)
@@ -78,6 +81,11 @@ class Post(models.Model):
         ordering = ["-pk"]
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+        
+class Comment(models.Model):
+    text = models.TextField()
+    photo = models.ForeignKey(Post, related_name='comments')
+    user = models.ForeignKey(User, related_name='comments')
         
     def get_absolute_url(self):
         return reverse('welcome')
