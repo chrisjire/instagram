@@ -4,6 +4,16 @@ from .models import *
 class NewsLetterForm(forms.Form):
     your_name = forms.CharField(label='First Name',max_length=30)
     email = forms.EmailField(label='Email')
+
+class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['text'].widget=forms.TextInput()
+        self.fields['text'].widget.attrs['placeholder']='Add comment..'
+    
+    class Meta:
+        model = Comment
+        fields = ('text',)
     
 class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -17,5 +27,4 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ('user', 'pub_date')
-        
         
