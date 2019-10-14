@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import datetime as dt
-from .models import Post, Profile, NewsletterRecipients, User
+from .models import Post, Profile, NewsletterRecipients, User, Comment
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .email import send_welcome_email
-from .forms import NewsLetterForm, ProfileForm, PostForm
+from .forms import NewsLetterForm, ProfileForm, PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +13,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def welcome(request):
     images = Post.objects.all()
     profiles= Profile.objects.all()
+    commentform = CommentForm()
+    comments=Comment.objects.all()
     
     if request.method == 'POST':
         form = NewsLetterForm(request.POST, request.FILES)
@@ -22,12 +24,13 @@ def welcome(request):
             recipient = NewsletterRecipients(name=name, email=email)
             recipient.save()
             send_welcome_email(name, email)
+            request.user.post(form)
             
             HttpResponseRedirect('welcome')
     else:
         form = NewsLetterForm()
     
-    return render (request, 'index.html', {"images":images,"profiles":profiles, "letterForm":form},locals())
+    return render (request, 'index.html', {"images":images,"profiles":profiles, "letterForm":form, "commentform":commentform, "comments":comments},locals())
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
@@ -86,4 +89,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+@login_required(login_url='/accounts/login/')
+def comment(request, post_id):
+    commentform = CommentForm()
+    comments=Comment.objects.all()
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.photo = post
+            comment.save()
+            
+            HttpResponseRedirect('welcome')
+    else:
+        form = CommentForm()
+    return render(request, 'index.html',{"commentform":commentform, "comments":comments},locals())
     

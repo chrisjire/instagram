@@ -86,6 +86,9 @@ class Comment(models.Model):
     text = models.TextField()
     photo = models.ForeignKey(Post, related_name='comments')
     user = models.ForeignKey(User, related_name='comments')
+    
+    class Meta:
+        ordering = ["-pk"]
         
     def get_absolute_url(self):
         return reverse('welcome')
