@@ -90,6 +90,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ["-pk"]
         
+        
     def get_absolute_url(self):
         return reverse('welcome')
 class NewsletterRecipients(models.Model):
