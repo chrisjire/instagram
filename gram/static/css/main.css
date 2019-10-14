@@ -475,3 +475,8 @@ footer p a:hover {
     margin-bottom: 10px;
     font-size: 25pt;
 }
+
+#stories{
+    margin-left: 50px;
+    float: left;
+}

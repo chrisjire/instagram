@@ -7,16 +7,16 @@
 <div class="container">
 
     <div class="row">
+    <div class="col-md-8">
         
     {% for image in images %}
 
-    <div class="col-sm-8 col-md-8">
         <br>
         <div class="card" style="width: 700px; border-radius: 20px;">
             <div class="card-body">
                 <div class="card-title">
-                    <img src="{{image.user.profile.profile_image.url}}" class="rounded-circle border" alt="{{image.user.username}}" width="60" height="60">
-                    <a href="{% url 'aboutuser' user_id=user.user.id %}">
+                    <img src="{{image.user.profile.profile_image.url}}" class="rounded-circle border" alt="{{image.user.username}}" width="70" height="70">
+                    <a href="{% url 'aboutuser' user_id=image.user.id %}">
                         <strong style="color: #333333;cursor: pointer; margin-left: 10px;">{{image.user.username}}</strong>
                     </a>
                 </div>
@@ -28,70 +28,31 @@
                 <p style="margin-left: 10px;">{{image.pub_date |timesince}} ago</p>
             </div>
         </div>
-    </div>
     {% endfor %}
-        <div class="card-body col-md-4 " id="stories">
-            <div class="card-title">
-                <img src="{{user.profile.profile_image.url}}" class="rounded-circle border" alt="{{user.username}}" width="50" height="50">
-                <a href="#">
-                    <strong style="color: #333333;cursor: pointer">{{user.username}}</strong>
+    </div>
+
+    <div class="col-md-4">
+        <div class="row">
+
+    {% for profile in profiles%}
+    <div class="col-md-12">
+        <br>
+        <div class="card">
+        <div class="card-body" >
+            <div class="card-text">
+                <img src="{{profile.user.profile.profile_image.url}}" class="rounded-circle border" alt="{{profile.user.username}}" width="50" height="50">
+                <a href="{% url 'aboutuser' user_id=profile.user.id %}">
+                    <strong style="color: #333333;cursor: pointer">{{profile.user.username}}</strong>
                 </a>
             </div>
         </div>
     </div>
 </div>
-<br>
-    <!-- Footer -->
-    <footer class="page-footer font-small special-color-dark pt-4">
-
-        <!-- Footer Elements -->
-        <div class="container">
+        {% endfor %}
+    </div>
     
-        <!--Grid row-->
-        <div class="row">
-    
-            <!--Grid column-->
-            <div class="col-md-6 mb-4">
-    
-            <!-- Form -->
-            <form class="form-inline">
-                <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                aria-label="Search">
-                <i class="fas fa-search" aria-hidden="true"></i>
-            </form>
-            <!-- Form -->
-    
-            </div>
-            <!--Grid column-->
-    
-            <!--Grid column-->
-            <div class="col-md-6 mb-4">
-    
-                <form  action="{%url 'welcome'%}" method="post">
-                    {%csrf_token%}
-                
-                    {% bootstrap_form letterForm layout='inline' %}
-                    <input type="submit" value="Subscribe">
-                </form>
-
-            </div>
-            <!--Grid column-->
-    
-        </div>
-        <!--Grid row-->
-    
-        </div>
-        <!-- Footer Elements -->
-    
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="#"> Instagram.com</a>
-        </div>
-        <!-- Copyright -->
-    
-    </footer>
-    <!-- Footer -->
-
-
+</div>
+</div>
+</div>
 
 {% endblock %}

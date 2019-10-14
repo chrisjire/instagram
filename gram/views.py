@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 @login_required(login_url='/accounts/login/')
 def welcome(request):
     images = Post.objects.all()
+    profiles= Profile.objects.all()
     
     if request.method == 'POST':
         form = NewsLetterForm(request.POST, request.FILES)
@@ -26,7 +27,7 @@ def welcome(request):
     else:
         form = NewsLetterForm()
     
-    return render (request, 'index.html', {"images":images, "letterForm":form},locals())
+    return render (request, 'index.html', {"images":images,"profiles":profiles, "letterForm":form},locals())
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
@@ -52,6 +53,8 @@ def edit(request):
     else:
         new_profile = ProfileForm(instance=request.user.profile)
     return render(request, 'edit.html', locals())
+
+
 
 
 @login_required(login_url='/accounts/login/')

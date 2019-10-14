@@ -40,6 +40,7 @@ class Profile(models.Model):
         image.user = self
         image.save()
         
+        
     class Meta:
         ordering = ['user']
         verbose_name = 'Profile'
