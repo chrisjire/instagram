@@ -1,10 +1,10 @@
-<!-- {%extends 'all-gram/base.html'%}
+{%extends 'all-gram/base.html'%}
 {% load bootstrap3 %}
 
 {% block content %}
 {{block.super}}
 <div class="container">
-    <form action="{% url 'welcome' %}" method="post" enctype="multipart/form-data" class="card form-inline">
+    <form action="" method="POST" enctype="multipart/form-data" class="card form-inline">
         {% csrf_token %}
         {{ form.as_p }}
         <!-- <input type="submit" class="btn btn-primary btn-sm" value="Upload"> -->
@@ -13,4 +13,4 @@
     </form>
     
 </div>
-{% endblock %} -->
+{% endblock %}

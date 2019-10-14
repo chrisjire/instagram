@@ -5,6 +5,8 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .email import send_welcome_email
 from .forms import NewsLetterForm, ProfileForm, PostForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -28,9 +30,9 @@ def welcome(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    images = request.user.profile.posts.all()
+    images = request.user.posts.all()
     user_object = request.user
-    user_images = user_object.profile.posts.all()
+    user_images = user_object.posts.all()
     return render(request, 'profile.html', locals())
 
 @login_required(login_url='/accounts/login/')
@@ -51,22 +53,13 @@ def edit(request):
         new_profile = ProfileForm(instance=request.user.profile)
     return render(request, 'edit.html', locals())
 
-@login_required(login_url='/accounts/login/')
-def new_post(request):
-    image_form = PostForm()
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            request.user.profile.posts(form)
-    return render(request, 'new_post.html', locals())
 
 @login_required(login_url='/accounts/login/')
 def user(request, user_id):
     user_object=get_object_or_404(User, pk=user_id)
     if request.user == user_object:
         return redirect('profile')
-    # isfollowing = user_object.profile not in request.user.profile.follows
-    user_images = user_object.profile.posts.all()
+    user_images = user_object.posts.all()
     return render(request, 'userprofile.html', locals())
 
 @login_required(login_url='/accounts/login/')
@@ -82,4 +75,11 @@ def search_results(request):
         message="You haven't searched for any term"
         return render(request,'search.html',{"message":message})
 
-
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['image', 'post_caption']
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    

@@ -15,16 +15,16 @@
         <div class="card" style="width: 700px; border-radius: 20px;">
             <div class="card-body">
                 <div class="card-title">
-                    <img src="{{image.user.profile_image.url}}" class="rounded-circle border" alt="{{image.user.user.username}}" width="60" height="60">
-                    <a href="{% url 'aboutuser' user_id=image.user.user.id %}">
-                        <strong style="color: #333333;cursor: pointer; margin-left: 10px;">{{image.user.user.username}}</strong>
+                    <img src="{{image.user.profile.profile_image.url}}" class="rounded-circle border" alt="{{image.user.username}}" width="60" height="60">
+                    <a href="{% url 'aboutuser' user_id=user.user.id %}">
+                        <strong style="color: #333333;cursor: pointer; margin-left: 10px;">{{image.user.username}}</strong>
                     </a>
                 </div>
             </div>
             <div class="card-text">
                 <img class="card-img-top" src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
                 
-                <p style="margin-top: 20px; margin-left: 10px;"><strong>{{image.user.user.username}}:</strong> {{image.post_description}}</p>
+                <p style="margin-top: 20px; margin-left: 10px;"><strong>{{image.user.username}}:</strong> {{image.post_caption}}</p>
                 <p style="margin-left: 10px;">{{image.pub_date |timesince}} ago</p>
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="card-body col-md-4 " id="stories">
             <div class="card-title">
                 <img src="{{user.profile.profile_image.url}}" class="rounded-circle border" alt="{{user.username}}" width="50" height="50">
-                <a href="{% url 'aboutuser' user_id=user.id %}">
+                <a href="#">
                     <strong style="color: #333333;cursor: pointer">{{user.username}}</strong>
                 </a>
             </div>

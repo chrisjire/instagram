@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 import datetime as dt
 from django.db.models.signals import post_save
 from django.db.models import Q
-
+from django.urls import reverse 
 
 # Create your models here.
 class Profile(models.Model):
@@ -58,8 +58,8 @@ class tags(models.Model):
 class Post(models.Model):
     image = models.ImageField(upload_to= 'images/')
     post_name = models.CharField(max_length=20)
-    post_description = models.TextField()
-    user = models.ForeignKey(Profile, related_name='posts')
+    post_caption = models.TextField()
+    user = models.ForeignKey(User, related_name='posts')
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add= True)
     
@@ -71,14 +71,16 @@ class Post(models.Model):
         
     @classmethod
     def get_post(cls):
-        new = cls.objects.all()
-        return new
+        images = cls.objects.all()
+        return images
     
     class Meta:
         ordering = ["-pk"]
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         
+    def get_absolute_url(self):
+        return reverse('welcome')
 class NewsletterRecipients(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
