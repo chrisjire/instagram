@@ -3,7 +3,6 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 import datetime as dt
 from django.db.models.signals import post_save
-from django.db.models import Q
 from django.urls import reverse 
 
 # Create your models here.

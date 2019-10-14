@@ -480,3 +480,13 @@ footer p a:hover {
     margin-left: 50px;
     float: left;
 }
+
+#searching::-webkit-input-placeholder {
+    text-align: center;
+}
+#searching{
+    background-color: #eeeeee73;
+    font-family:FontAwesome!important;
+    padding: 3px;
+    width: 199px;
+}
