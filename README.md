@@ -1,4 +1,4 @@
-# Instaglam
+# Instagram
 ​
 This is an attempt at cloning the social media site instagram where users share comment and like photos and share experiences and fun moments.
 ​
