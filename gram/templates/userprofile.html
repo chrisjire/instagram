@@ -70,7 +70,14 @@
             <div class="modal-dialog modal-lg" role="document" style="width: 850px; border-radius: 20px;">
                 <div class="modal-content">
                 <div class="modal-body" >
-                    <img src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 765px; height: 550px;"">
+                    <img src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 765px; height: 550px;">
+
+                    <div class="realphotoinfo">
+                            <span class="far fa-heart" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></span>
+                            <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">5</span>
+                            <span class="far fa-comment" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></span>
+                            <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">{{image.comments.count}}</span>
+                        </div>
                     <hr>
                     <p><strong>{{image.user.username}}</strong> {{image.post_caption}}</p>
                     

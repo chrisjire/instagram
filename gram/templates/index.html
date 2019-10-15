@@ -23,6 +23,13 @@
             </div>
             <div class="card-text">
                 <img class="card-img-top" src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
+
+                <div class="realphotoinfo">
+                    <span class="far fa-heart" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></span>
+                    <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">5</span>
+                    <span class="far fa-comment" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></span>
+                    <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">{{image.comments.count}}</span>
+                </div>
                 
                 <p style="margin-top: 20px; margin-left: 10px;"><strong>{{image.user.username}}</strong> {{image.post_caption}}</p>
                 <p style="margin-left: 10px;">{{image.pub_date |timesince}} ago</p>

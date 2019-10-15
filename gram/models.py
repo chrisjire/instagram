@@ -68,6 +68,7 @@ class Post(models.Model):
     post_caption = models.TextField()
     user = models.ForeignKey(User, related_name='posts')
     tags = models.ManyToManyField(tags)
+    likes = models.ManyToManyField(User, related_name= 'likes', blank = True)
     pub_date = models.DateTimeField(auto_now_add= True)
     
     def save_post(self):
@@ -80,6 +81,9 @@ class Post(models.Model):
     def get_post(cls):
         images = cls.objects.all()
         return images
+    
+    def total_likes(self):
+        self.likes.count()
     
     class Meta:
         ordering = ["-pk"]
