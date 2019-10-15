@@ -14,7 +14,6 @@ def welcome(request):
     images = Post.objects.all()
     profiles= Profile.objects.all()
     commentform = CommentForm()
-    comments=Comment.objects.all()
     
     if request.method == 'POST':
         form = NewsLetterForm(request.POST, request.FILES)
@@ -30,13 +29,15 @@ def welcome(request):
     else:
         form = NewsLetterForm()
     
-    return render (request, 'index.html', {"images":images,"profiles":profiles, "letterForm":form, "commentform":commentform, "comments":comments},locals())
+    return render (request, 'index.html', {"images":images,"profiles":profiles, "letterForm":form, "commentform":commentform},locals())
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
     images = request.user.posts.all()
     user_object = request.user
     user_images = user_object.posts.all()
+    commentform = CommentForm()
+    comments=Comment.objects.all()
     return render(request, 'profile.html', locals())
 
 @login_required(login_url='/accounts/login/')
@@ -63,6 +64,7 @@ def edit(request):
 @login_required(login_url='/accounts/login/')
 def user(request, user_id):
     user_object=get_object_or_404(User, pk=user_id)
+    
     if request.user == user_object:
         return redirect('profile')
     user_images = user_object.posts.all()
@@ -90,6 +92,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
+    success_url="/"
+    
 @login_required(login_url='/accounts/login/')
 def comment(request, post_id):
     commentform = CommentForm()
@@ -102,9 +106,8 @@ def comment(request, post_id):
             comment.user = request.user
             comment.photo = post
             comment.save()
-            
-            HttpResponseRedirect('welcome')
+            return redirect('/')
     else:
         form = CommentForm()
-    return render(request, 'index.html',{"commentform":commentform, "comments":comments},locals())
+    return redirect(request, 'index.html',{"commentform":commentform, "comments":comments},locals())
     

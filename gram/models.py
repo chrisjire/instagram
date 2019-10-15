@@ -47,6 +47,10 @@ class Profile(models.Model):
         ordering = ['user']
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
+        
+    @property
+    def all_comments(self):
+        return self.comments.all()
 
 class tags(models.Model):
     name = models.CharField(max_length= 20)
@@ -81,6 +85,10 @@ class Post(models.Model):
         ordering = ["-pk"]
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+    @property
+    def all_comments(self):
+        return self.comments.all()
+        
         
 class Comment(models.Model):
     text = models.TextField()
