@@ -52,7 +52,7 @@
         
         
         
-                            <img src="{{image.image.url}}?w=500&h=500&fit=crop" class="gallery-image"  id="" data-comid="{{post.id}}" >
+                            <img src="{{image.image.url}}" class="gallery-image" style="width: 360px; height: 300px;" data-comid="{{post.id}}" data-toggle="modal" data-target="#cool{{image.id}}">
                             
                             </div>
                             {% endfor %}
@@ -64,5 +64,45 @@
             </div>
                 
         </div>
+        {% for image in  user_images %}
+        <div class="modal fade" id="cool{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true" >
+            <div class="modal-dialog modal-lg" role="document" style="width: 850px; border-radius: 20px;">
+                <div class="modal-content">
+                <div class="modal-body" >
+                    <img src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 765px; height: 550px;"">
+                    <hr>
+                    <p><strong>{{image.user.username}}</strong> {{image.post_caption}}</p>
+                    
+                    <p>Posted:{{image.pub_date |timesince}} ago</p>
+                    
+                    <div>
+                            {% if comments %}
+                            <div style="border-bottom: solid 1px black;"></div>
+                            {% endif %}
+                            {% for comment in image.all_comments|slice:"5" %}
+                            <p>
+                                <strong >{{comment.user.username}}:</strong> {{comment.text}}
+                            </p>
+                            {% endfor %}
+                            <hr>
+                        <form class="text-center"  action="{% url 'comment' post_id=image.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="getinput" id="comment{{image.id}}" style="color: blueviolet;">
+                                {{commentform.text}}
+                            </div>
+                        </form>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                        
+                </div>
+                </div>
+            </div>
+            
+            
+            </div>
+            {% endfor %}
+    
     </body>
 {% endblock %}
