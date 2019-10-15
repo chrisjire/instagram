@@ -23,17 +23,17 @@
             </div>
             <div class="card-text">
                 <img class="card-img-top" src="{{image.image.url}}" class="img-responsive" alt="Image" style="width: 700px; height: 600px;">
-
+                <div>
                 <a class='info' href="{% url 'likePost' image.id %}" style="color: black;">
                     {%if image.likes.id == user.id%}
                     <i class="fas fa-heart" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></i>
                     {%else%}
                     <i class="far fa-heart" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></i>
                     {%endif%}
-                </a><span style="font-size:25px;">{{image.likes.count}}</span>
+                </a><span style="font-size:25px;">{{image.likes.count}} likes </span>
                     <span class="far fa-comment" style="font-size: 30px; margin-left: 15px;margin-top: 15px;"></span>
-                    <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">{{image.comments.count}}</span>
-                
+                    <span class="infotext" style="font-size: 30px; margin-left: 5px;margin-top: 15px;">{{image.comments.count}} comments</span>
+                </div>
                 
                 <p style="margin-top: 20px; margin-left: 10px;"><strong>{{image.user.username}}</strong> {{image.post_caption}}</p>
                 <p style="margin-left: 10px;">{{image.pub_date |timesince}} ago</p>

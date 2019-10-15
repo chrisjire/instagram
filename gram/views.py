@@ -64,7 +64,7 @@ def edit(request):
 @login_required(login_url='/accounts/login/')
 def user(request, user_id):
     user_object=get_object_or_404(User, pk=user_id)
-    
+    commentform = CommentForm()
     if request.user == user_object:
         return redirect('profile')
     user_images = user_object.posts.all()
